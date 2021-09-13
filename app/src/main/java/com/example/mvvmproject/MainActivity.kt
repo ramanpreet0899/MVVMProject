@@ -6,6 +6,7 @@ import android.widget.*
 import androidx.lifecycle.*
 import com.example.mvvmproject.viewModel.*
 import dagger.hilt.android.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -13,14 +14,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initViewModel()
-
     }
 
     private fun initViewModel() {
         val userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
 
         userViewModel.userList.observe(this, Observer {
-            Toast.makeText(applicationContext,it.toString(),Toast.LENGTH_LONG).show()
+            val adapter = UserAdapter(it)
+            recycler_view_users.adapter = adapter
         })
     }
 }
